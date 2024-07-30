@@ -1,1 +1,88 @@
-123
+-- Wait until the game is fully loaded
+repeat wait() until game:IsLoaded()
+
+-- Create GUI elements
+local function createGui()
+    local player = game.Players.LocalPlayer
+    local screenGui = Instance.new("ScreenGui")
+    screenGui.Name = "FullScreenGUI"
+    screenGui.Parent = player.PlayerGui
+
+    -- Create ImageLabel for background
+    local backgroundImage = Instance.new("ImageLabel")
+    backgroundImage.Size = UDim2.new(1, 0, 1, 0) -- Full screen size
+    backgroundImage.Position = UDim2.new(0, 0, 0, 0) -- Positioned at the top-left corner
+    backgroundImage.BackgroundTransparency = 1 -- Transparent background
+    backgroundImage.Image = "rbxassetid://11648237431" -- Background image ID
+    backgroundImage.ImageColor3 = Color3.fromRGB(255, 255, 255) -- Ensure image color is white
+    backgroundImage.Parent = screenGui
+
+    -- Create Frame to hold other elements
+    local frame = Instance.new("Frame")
+    frame.Size = UDim2.new(1, 0, 1, 0) -- Full screen size
+    frame.Position = UDim2.new(0, 0, 0, 0) -- Positioned at the top-left corner
+    frame.BackgroundTransparency = 1 -- Transparent background
+    frame.BorderSizePixel = 0 -- No border
+    frame.Parent = screenGui
+
+    -- Create TextLabel
+    local textLabel = Instance.new("TextLabel")
+    textLabel.Size = UDim2.new(1, -40, 0.4, -20) -- Slightly smaller than the frame to center text
+    textLabel.Position = UDim2.new(0, 20, 0, 20) -- Centered with padding
+    textLabel.BackgroundTransparency = 1 -- Transparent background
+    textLabel.TextColor3 = Color3.fromRGB(255, 255, 255) -- Initial color (white)
+    textLabel.TextScaled = true
+    textLabel.TextWrapped = true
+    textLabel.Text = "script is outdated copy that invitelink" -- Displayed text
+    textLabel.TextStrokeTransparency = 0.5 -- Optional: Adds a stroke for readability
+    textLabel.Parent = frame
+
+    -- Create TextBox
+    local textBox = Instance.new("TextBox")
+    textBox.Size = UDim2.new(1, -40, 0.4, -20) -- Size similar to TextLabel
+    textBox.Position = UDim2.new(0, 20, 0.5, 20) -- Positioned below the TextLabel
+    textBox.BackgroundColor3 = Color3.fromRGB(50, 50, 50) -- Dark gray background
+    textBox.TextColor3 = Color3.fromRGB(255, 255, 255) -- White text
+    textBox.TextStrokeTransparency = 0.5 -- Optional: Adds a stroke for readability
+    textBox.Text = "https://discord.gg/gFNTebhGFU" -- Default text
+    textBox.ClearTextOnFocus = false -- Keep text when focus is lost
+    textBox.TextScaled = true
+    textBox.TextWrapped = true
+    textBox.Parent = frame
+end
+
+-- Function to smoothly change text color
+local function animateTextColor(textLabel)
+    local colors = {
+        Color3.fromRGB(255, 0, 0),   -- Red
+        Color3.fromRGB(255, 128, 0), -- Orange
+        Color3.fromRGB(255, 255, 0), -- Yellow
+        Color3.fromRGB(0, 255, 0),   -- Green
+        Color3.fromRGB(0, 0, 255),   -- Blue
+        Color3.fromRGB(75, 0, 130),   -- Indigo
+        Color3.fromRGB(238, 130, 238) -- Violet
+    }
+    
+    local index = 1
+    local delay = 1 -- Delay between color changes
+    
+    while true do
+        textLabel.TextColor3 = colors[index]
+        index = index % #colors + 1
+        wait(delay)
+    end
+end
+
+-- Main function
+local function main()
+    createGui() -- Create GUI elements
+    
+    -- Start animating the text color
+    local textLabel = game.Players.LocalPlayer.PlayerGui:FindFirstChild("FullScreenGUI"):FindFirstChild("Frame"):FindFirstChild("TextLabel")
+    if textLabel then
+        animateTextColor(textLabel)
+    end
+end
+
+-- Execute the main function
+main()
